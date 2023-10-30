@@ -2,9 +2,9 @@ import numpy as np
 import math
 
 
-def wgn(x, snr):  # 输出为高斯白噪声
+def wgn(x, snr):  # Output is Gaussian white noise
     '''
-    程序中用hist()检查噪声是否是高斯分布，psd()检查功率谱密度是否为常数。
+    In the program, use hist() to check whether the noise is Gaussian distribution, and psd() to check whether the power spectral density is constant.
     '''
     snr = 10 ** (snr / 10.0)
     xpower = np.sum(x ** 2) / len(x)
@@ -16,31 +16,31 @@ def add_noise(train_data, test_data):
     snr = 6
     n1 = wgn(train_data, snr)
     n2 = wgn(test_data, snr)
-    train_data_noise = train_data + n1  # 增加了6dBz信噪比噪声的信号
-    test_data_noise = test_data + n2  # 增加了6dBz信噪比噪声的信号
-    print('train_data信噪比：', 10 * math.log10(sum(train_data_noise ** 2) / sum(n1 ** 2)))  # 验算信噪比
-    print('test_data信噪比：', 10 * math.log10(sum(test_data_noise ** 2) / sum(n2 ** 2)))  # 验算信噪比
+    train_data_noise = train_data + n1  # Signal with added 6dBz signal-to-noise ratio noise
+    test_data_noise = test_data + n2  # Signal with added 6dBz signal-to-noise ratio noise
+    print('train_data SNR：', 10 * math.log10(sum(train_data_noise ** 2) / sum(n1 ** 2)))  # Checking the signal-to-noise ratio
+    print('test_data SNR：', 10 * math.log10(sum(test_data_noise ** 2) / sum(n2 ** 2)))  # Checking the signal-to-noise ratio
 
     return train_data_noise, test_data_noise
 
 
 def gauss_noise_matrix(matrix, sigma):
-    # 1. 定义一个与多维矩阵等大的高斯噪声矩阵
+    # 1. Define a Gaussian noise matrix as large as a multidimensional matrix
     mu = 0
     channel_size = len(matrix)
     height = len(matrix[0])
     width = len(matrix[0][0])
     noise_matrix = np.random.normal(mu, sigma, size=[channel_size, height, width]).astype(
-        np.float32)  # 这里在生成噪声矩阵的同时将其元素数据类型转换为float32
+        np.float32)  # Here, while generating the noise matrix, the element data type is converted to float32
     # print("noise_matrix_element_type: {}".format(type(noise_matrix[0][0][0]))) # numpy.float32
-    # print(noise_matrix[0][0])  # 这里为了方便观察，只输出了第一个channel的第一行元素
+    # print(noise_matrix[0][0])  # For the convenience of observation, only the first line element of the first channel is output here
 
-    # 2. 与原来的多维矩阵相加，即可达到添加高斯噪声的效果
+    # 2. Adding to the original multidimensional matrix can achieve the effect of adding Gaussian noise
     matrix = matrix + noise_matrix
 
-    # 3. 输出添加噪声后的矩阵
+    # 3. Output matrix with added noise
     # print(">>>>>>>>>added gaussain noise with method 2")
-    # print(matrix[0][0])  # 这里为了方便观察，只输出了第一个channel的第一行元素
+    # print(matrix[0][0])  # For the convenience of observation, only the first line element of the first channel is output here
 
     return matrix
 
