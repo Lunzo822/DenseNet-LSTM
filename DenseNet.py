@@ -19,7 +19,6 @@ from tensorflow.python.keras.layers.pooling import AveragePooling1D, GlobalAvera
 
 
 from data_process import load_data
-from result_plot import result_fig
 from add_noise import add_noise, gauss_noise_matrix
 
 
@@ -195,9 +194,6 @@ def train_test():
     print('Recall:', recall_score(test_label, prediction, average='macro'))
     print('F1-score:', f1_score(test_label, prediction, average='macro'))
     print('Precision score:', precision_score(test_label, prediction, average='macro'))
-
-    result_fig(classes, labels, confusion_matrix, history, seed, bs, sigma)
-    # plot_confuse(model, test_data, test_label, labels)
 
     print('start_time：', start_time, 'end_time：', end_time, 'all_time：', end_time - start_time)
 
