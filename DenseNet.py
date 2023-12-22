@@ -201,7 +201,7 @@ def train_test():
 
     print('start_time：', start_time, 'end_time：', end_time, 'all_time：', end_time - start_time)
 
-    with open('E:\\PythonProject\\CNN-SVM\\denseNet\\Result\\result__seed=' + str(seed) + '_bs=' + str(bs) + '_sigma=' + str(sigma) + '.txt', 'w') as f:  # 设置文件对象data.txt
+    with open('E:\\PythonProject\\CNN-SVM\\denseNet\\Result\\result__seed=' + str(seed) + '_bs=' + str(bs) + '_sigma=' + str(sigma) + '.txt', 'w') as f:
         print(confusion_matrix, '\n',
 
               '\n', '================== Classification report =====================', '\n',
