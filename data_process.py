@@ -110,3 +110,26 @@ def load_data(sigma):
 
     return train_data, test_data, train_label, test_label
 
+
+def load_test_data(sub):
+    data_test, label_test = load_dataset(f'运动意图数据集/五名未经训练的受试者测试集数据/new/{sub}')
+
+    # 数据归一化
+    data_test = test_min_max_scale(data_test)
+    data_test = data_test.transpose((0, 2, 1))      # 转置
+
+    # 打乱数据和标签
+    data_shf, label_shf = shuffle(data_test, label_test)
+
+    test_data, test_label = data_shf, label_shf
+
+    test_data = np.array(test_data)
+    test_label = np.array(test_label)
+
+    # print(train_data)
+    # print(train_label)
+    # print(test_data)
+    # print(test_label)
+
+    return test_data, test_label
+
